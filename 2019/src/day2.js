@@ -7,7 +7,7 @@ function runProgram(noun, verb, program) {
     program[1] = noun; // 12
     program[2] = verb; // 2
 
-    return intcode(program);
+    return intcode(program, 0);
 }
 
 console.log(runProgram(12, 2, input));
@@ -16,7 +16,7 @@ let breakout = false;
 
 for (var i = 0; i < 100; i++) {
     for (var j = 0; j < 100; j++) {
-        const result = runProgram(i, j, input);
+        const { result } = runProgram(i, j, input);
         if (result === 19690720) {
             console.log(`Noun: ${i}, Verb: ${j}, Output: ${(100 * i) + j}`);
             breakout = true;
