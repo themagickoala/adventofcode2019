@@ -1,11 +1,10 @@
-module.exports = function intcode(program, pointer, ...input) {
+module.exports = function intcode(program, pointer, relBase, ...input) {
     program = [...program];
 
     let i = pointer;
     let halted = false;
     let inputNo = 0;
     let outputs = [];
-    let relBase = 0;
     
     while (!halted) {
         const instruction = '' + program[i];
@@ -50,7 +49,7 @@ module.exports = function intcode(program, pointer, ...input) {
                 i += 4;
                 break;
             case 3:
-                console.log(`Input at ${inputNo}: ${input[inputNo]}`);
+                // console.log(`Input at ${i}: ${input[inputNo]}`);
                 if (input[inputNo] === undefined) {
                     return {
                         result: program[0],
@@ -58,6 +57,7 @@ module.exports = function intcode(program, pointer, ...input) {
                         halted,
                         outputs,
                         program,
+                        relBase,
                     }
                 }
                 setParam(1, input[inputNo]);
@@ -66,7 +66,7 @@ module.exports = function intcode(program, pointer, ...input) {
                 break;
             case 4:
                 outputs.push(getParam(1));
-                console.log(`Output at ${i}: ${getParam(1)}`);
+                // console.log(`Output at ${i}: ${getParam(1)}`);
                 i += 2;
                 break;
             case 5:
@@ -103,5 +103,6 @@ module.exports = function intcode(program, pointer, ...input) {
         halted,
         outputs,
         program,
+        relBase,
     };
 }

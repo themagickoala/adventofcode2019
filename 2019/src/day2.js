@@ -7,7 +7,7 @@ function runProgram(noun, verb, program) {
     program[1] = noun; // 12
     program[2] = verb; // 2
 
-    return intcode(program, 0);
+    return intcode(program, 0, 0);
 }
 
 console.log(runProgram(12, 2, input));

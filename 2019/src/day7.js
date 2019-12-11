@@ -130,7 +130,7 @@ for (var p = 0, tot = permutations.length; p < tot; p++) {
     let nextInput = 0;
     for (var i = 0; i < 5; i++) {
         console.log("Amp " + i + " input = (" + permutations[p][i] + ", " + nextInput + ")");
-        const { outputs } = intcode(input, 0, permutations[p][i], nextInput);
+        const { outputs } = intcode(input, 0, 0, permutations[p][i], nextInput);
         nextInput = outputs[0];
         console.log("Amp " + i + " output = " + nextInput);
     }
@@ -146,7 +146,7 @@ for (var p = 0, tot = permutations.length; p < tot; p++) {
     let programStates = [];
     let i;
     for (i = 0; i < 5; i++) {
-        const programState = intcode(input, 0, permutations[p][i] + 5, nextInput);
+        const programState = intcode(input, 0, 0, permutations[p][i] + 5, nextInput);
         nextInput = programState.outputs[0];
         programStates.push(programState);
     }
@@ -155,7 +155,7 @@ for (var p = 0, tot = permutations.length; p < tot; p++) {
         if (i >= 5) i = 0;
         const program = programStates[i];
         if (program.halted) break;
-        const state = intcode(program.program, program.pointer, nextInput);
+        const state = intcode(program.program, program.pointer, program.relBase, nextInput);
         nextInput = state.outputs[0];
         programStates[i] = state;
         i++;
